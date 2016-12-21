@@ -11,7 +11,7 @@
 
 ## Contributing
 
-Wil je bij dragen toto deze repository. Dan kun je gerust eens rustig het Contributie bestand doornemen. 
+Wil je bij dragen tot deze repository. Dan kun je gerust eens rustig het Contributie bestand doornemen. 
 
 ## License
 
