@@ -2,12 +2,12 @@
 
 ## Table of contents.
 
-- [Authorization]()
-- [Rental api]()
-- [Users api]()
-- [Groups api]()
-- [Activities api]()
-- [Status codes]()
+- [Authorization](documentation/authorization.md)
+- [Rental api](documentation/rental.md)
+- [Users api](documentation/users.md)
+- [Groups api](documentation/groups.md)
+- [Activities api](documentation/activities.md)
+- [Status codes](documentation/status-codes.md)
 
 ## Contributing
 
