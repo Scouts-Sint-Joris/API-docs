@@ -1,0 +1,28 @@
+FORMAT: 1A
+HOST: http://www.st-joris-turnhout.be
+
+# SIJOT-3 API
+
+Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
+
+## Verhuringen [/api/lease]
+
+### Oplijsting van alle verhuringen [GET]
+    
++ Response 200 (application/json)
+
+    + Headers
+    
+            X-Authorization: '<Uw API sleutel>'
+
+    + Body 
+    
+            {
+            }
+
+### Bekijk een specifieke verhuring [GET /{verhuring_id}]
++ Parameters
+    + verhuring_id (integer) - De id van de verhuring in the systeem.
+    
+
+### Maak een verhuring aan [POST]
