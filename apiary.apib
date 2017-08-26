@@ -5,6 +5,20 @@ HOST: http://www.st-joris-turnhout.be
 
 Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
 
+## Authorisatie 
+
+#### Authorization request headers 
+
+Bij elke(*) request moet een *Authorization-header* worden meegegeven:
+
+`X-Authorization: {Uw API sleutel}`
+
+`{Uw API sleutel}` is een random gegenereerde JSON token. Die kan verkregen worden als admin in het controle
+paneel van de website.
+
+(*) Enkele endpoints zijn publiek. Hierbij is geen *Authorization-header* noodzakelijk. Het resultaat kan wel afhangen
+van de *Authorization-header*
+
 ## Verhuringen [/api/lease]
 
 ### Oplijsting van alle verhuringen [GET]
