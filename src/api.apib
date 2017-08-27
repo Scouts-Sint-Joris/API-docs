@@ -107,13 +107,22 @@ Code     | Reason Phrase
 
 + Request (application/json)
     + Attributes
-        + status_id: 0 (number, required) -  1 = Nieuw, 2 = Optie, 3 = Bevestigd
+        + status_id: 0 (enum[number], required) -  1 = Nieuw, 2 = Optie, 3 = Bevestigd
+            + 1 - Niçeuwe verhuring 
+            + 2 - Verhuring is een optie 
+            + 3 - Bevestigde verhuring
         + start_datum: 0000/00/00 (string, required) - Start datum v/d verhuring (YYYY/MM/DD)
         + eind_datum: 0000/00/00 (string, required) - Eind datum v/d verhuring (YYYY/MM/DD)
         + contact_email: naam@domein.tld (string, required) - Email adres v/d contact persoon
         + groeps_naam: Sint Joris Turnhout (string, required) - De naam van de groep
 
 + Response 401
+
+### Wijzig verhuring [PUT api/lease/{verhuring_id}]
+
++ parameters
+
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
 
 ### Verwijder een verhuring [DELETE /api/lease/{verhuring_id}]
 

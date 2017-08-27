@@ -1,0 +1,86 @@
+FORMAT: 1A
+HOST: http://www.st-joris-turnhout.be
+
+# SIJOT-3 API
+
+Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
+
+# Group Algemeen
+#### Authorization request headers 
+
+Bij elke(*) request moet een *Authorization-header* worden meegegeven:
+
+`X-Authorization: {Uw API sleutel}`
+
+`{Uw API sleutel}` is een random gegenereerde JSON token. Die kan verkregen worden als admin in het controle
+paneel van de website.
+
+(*) Enkele endpoints zijn publiek. Hierbij is geen *Authorization-header* noodzakelijk. Het resultaat kan wel afhangen
+van de *Authorization-header*
+
+## Errors 
+
+#### Status codes 
+
+Code     | Reason Phrase 
+-------- | -----------------------------
+`200`    | Request OK 
+`201`    | Resource created
+`304`    | Not Modified 
+`400`    | Bad request
+`401`    | Unauthorized request
+`404`    | Resource not found 
+`50x`    | Internal server error.
+
+#### Formaat 
+
+```javascript 
+{
+    "error": {
+        "code": "{HTTP Status code}",
+        "http_code": "{Uitleg van de HTTP code}",
+        "message": "{Titel van de fout.}"
+    }
+}
+```
+
+# Group Verhuringen
+
+## Oplijsting van alle Verhuringen [GET /api/lease]
+## Informatie optrent verhuring [GET /api/lease/1]
+## Verhuring invoegen [POST /api/lease/store]
+## Verhuring aanpassen [PUT /api/lease/1]
+## Verhuring verwijderen [DELETE /api/lease/1]
+
++ Response 401 (application/json)
+    + Attributes
+        - error (Resource unauthorized)
+        
++ Response 200 (application/json)
+
+# Group Logins 
+# Group Takken
+# Group Activiteiten
+
+# Group API sleutels
+
+:::note
+**NOTE:** Je hebt admin rechten nodig in de website om dit deeltje van de api te gebruiken.
+:::
+
+## Sleutel aanmaken [POST /api/key/create]
+## Sleutel verwijderen [DELETE /api/key/1]
+
+# Data Structures
+
+## Resource notfound (object)
+
+## Resource created (object)
+
+## Resource updated (object)
+
+## Resource unauthorized (object)
+
+- code: 401 (number)
+- http_code: `GEN-AUTHORIZED` (string)
+- message: Unauthorized (string)
