@@ -5,7 +5,7 @@ HOST: http://www.st-joris-turnhout.be
 
 Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
 
-# Group algemeen
+# Group Algemeen
 #### Authorization request headers 
 
 Bij elke(*) request moet een *Authorization-header* worden meegegeven:
@@ -43,56 +43,44 @@ Code     | Reason Phrase
     }
 }
 ```
-# Group Overzicht
 
-### Oplijsting van alle verhuringen [GET /api/lease]
-    
-+ Response 200 (application/json)
+# Group Verhuringen
 
-    + Headers
-    
-            X-Authorization: '<Uw API sleutel>'
-
-    + Body 
-    
-            {
-            }
-
-### Bekijk een specifieke verhuring [GET /{verhuring_id}]
-+ Parameters
-    + verhuring_id (integer) - De id van de verhuring in het systeem.
-    
-+ Response 401
-    
-
-### Maak een verhuring aan [POST /api/lease]
-
-+ Request (application/json)
-    + Attributes
-        + choices: Swift, `Objective-C` (array, required) - test
-
-+ Response 401
-
-### Verwijder een verhuring [DELETE /{verhuring_id}]
-
-+ Parameters
-
-    + verhuring_id (integer) - De id van de verhuring in het systeem.
-
-+ Response 200 (application/json)
+## Oplijsting van alle Verhuringen [GET /api/lease]
+## Informatie optrent verhuring [GET /api/lease/1]
+## Verhuring invoegen [POST /api/lease/store]
+## Verhuring aanpassen [PUT /api/lease/1]
+## Verhuring verwijderen [DELETE /api/lease/1]
 
 + Response 401 (application/json)
+    + Attributes
+        - error (Resource unauthorized)
+        
++ Response 200 (application/json)
 
-    + Body
+# Group Logins 
+# Group Takken
+# Group Activiteiten
 
-        ```javascript
-        {
-            "error": {
-            "code": "401",
-                "http_code": "GEN-UNAUTHORIZED",
-                "message":"Unauthorized."
-            }
-        }
-        ```
+# Group API sleutels
 
-+ Response 404 (application/json)
+:::note
+**NOTE:** Je hebt admin rechten nodig in de website om dit deeltje van de api te gebruiken.
+:::
+
+## Sleutel aanmaken [POST /api/key/create]
+## Sleutel verwijderen [DELETE /api/key/1]
+
+# Data Structures
+
+## Resource notfound (object)
+
+## Resource created (object)
+
+## Resource updated (object)
+
+## Resource unauthorized (object)
+
+- code: 401 (number)
+- http_code: `GEN-AUTHORIZED` (string)
+- message: Unauthorized (string)

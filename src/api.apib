@@ -1,0 +1,234 @@
+FORMAT: 1A
+HOST: http://www.st-joris-turnhout.be
+
+# SIJOT-3 API
+
+Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
+
+# Group algemeen
+#### Authorization request headers 
+
+Bij elke(*) request moet een *Authorization-header* worden meegegeven:
+
+`X-Authorization: {Uw API sleutel}`
+
+`{Uw API sleutel}` is een random gegenereerde JSON token. Die kan verkregen worden als admin in het controle
+paneel van de website.
+
+(*) Enkele endpoints zijn publiek. Hierbij is geen *Authorization-header* noodzakelijk. Het resultaat kan wel afhangen
+van de *Authorization-header*
+
+## Errors 
+
+#### Status codes 
+
+Code     | Reason Phrase 
+-------- | -----------------------------
+`200`    | Request OK 
+`201`    | Resource created
+`304`    | Not Modified 
+`400`    | Bad request
+`401`    | Unauthorized request
+`404`    | Resource not found 
+`50x`    | Internal server error.
+
+#### Formaat 
+
+```javascript 
+{
+    "error": {
+        "code": "{HTTP Status code}",
+        "http_code": "{Uitleg van de HTTP code}",
+        "message": "{Titel van de fout.}"
+    }
+}
+```
+# Group Verhuringen
+
+### Oplijsting van alle verhuringen [GET /api/lease]
+    
++ Response 200 (application/json)
+
+    + Headers
+
+            X-Authorization: '<Uw API sleutel>'
+
+    + Body 
+        ```javascript
+        {
+        }
+        ```
+
++ Response 401 (application/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+### Bekijk een specifieke verhuring [GET /api/lease/{verhuring_id}]
++ Parameters
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
+
++ Response 200 (application/json)
+
+    + Headers 
+
+            X-Authorization: '<Uw api sleutel>'
+
+    + Body 
+        ```javascript
+        {
+        }
+        ```
+
++ Response 401 (application/json)
+
+    + Body 
+
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
+    
+
+### Maak een verhuring aan [POST /api/lease]
+
++ Request (application/json)
+    + Attributes
+        + status_id: 0 (enum[number], required) -  1 = Nieuw, 2 = Optie, 3 = Bevestigd
+            + 1 - Niçeuwe verhuring 
+            + 2 - Verhuring is een optie 
+            + 3 - Bevestigde verhuring
+        + start_datum: 0000/00/00 (string, required) - Start datum v/d verhuring (YYYY/MM/DD)
+        + eind_datum: 0000/00/00 (string, required) - Eind datum v/d verhuring (YYYY/MM/DD)
+        + contact_email: naam@domein.tld (string, required) - Email adres v/d contact persoon
+        + groeps_naam: Sint Joris Turnhout (string, required) - De naam van de groep
+
++ Response 401
+
+### Wijzig verhuring [PUT api/lease/{verhuring_id}]
+
++ parameters
+
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
+
+### Verwijder een verhuring [DELETE /api/lease/{verhuring_id}]
+
++ Parameters
+
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
+
++ Response 200 (application/json)
+
+    + Headers 
+
+            X-Authorization: '<uw api sleutel>'
+
++ Response 401 (application/json)
+
+    + Body
+
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED",
+                "message": "Unauthorized."
+            }
+        }
+        ```
+
++ Response 404 (application/json)
+
+# Group Logins 
+
+### Login aanmaken [POST /api/users]
+
+### Login verwijderen [DELETE /api/users/{user_id}]
+
++ Parameters
+
+    + user_id (integer) - De id van de login in het systeem.
+
+# Group Activiteiten
+
+### Oplijsting van alle activiteiten [GET /api/activities]
+
+:::note 
+Deze end-point is publiek
+:::
+
+# Group Takken
+
+### Oplijsting van alle groepen [GET /api/groups]
+
++ Response 200 (application/json)
+
++ Response 401 (application/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED",
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+
+### Informatie specifieke groep [GET /api/groups/{selector}]
+
++ parameters 
+
+    + selector (string) = De selector van de groep in de website.
+
+### Leidinsploeg [GET /api/groups/leidingsploeg]
+
+# Group API sleutels
+
+:::note
+Voor deze endpoints heb je administratie rechten nodig in de website.
+:::
+
++ Response 200 (application/json)
+
++ Response 401 (appliation/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": 401, 
+                "http_code": "GEN-AUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+
+### Sleutel aanmaken [POST /api/key]
+
+:::note 
+Voor deze endpoint heb je administratie rechten nodig in de website.
+:::
+
+### Sleutel verwijderen [DELETE /api/key/]
+
+:::note 
+Voor deze endpoint heb je administratie rechten nodig in de website. 
+:::
+
