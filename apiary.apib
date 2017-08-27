@@ -1,4 +1,3 @@
-AUTHOR: Tim Joosten
 FORMAT: 1A
 HOST: http://www.st-joris-turnhout.be
 
@@ -6,8 +5,7 @@ HOST: http://www.st-joris-turnhout.be
 
 Deze referentie hoort bij de API die Scouts en Gidsen Sint-Joris, Turnhout. Heeft ontwikkeld voor intern gebruik. 
 
-## Authorisatie 
-
+# Group algemeen
 #### Authorization request headers 
 
 Bij elke(*) request moet een *Authorization-header* worden meegegeven:
@@ -20,9 +18,34 @@ paneel van de website.
 (*) Enkele endpoints zijn publiek. Hierbij is geen *Authorization-header* noodzakelijk. Het resultaat kan wel afhangen
 van de *Authorization-header*
 
-## Verhuringen [/api/lease]
+## Errors 
 
-### Oplijsting van alle verhuringen [GET]
+#### Status codes 
+
+Code     | Reason Phrase 
+-------- | -----------------------------
+`200`    | Request OK 
+`201`    | Resource created
+`304`    | Not Modified 
+`400`    | Bad request
+`401`    | Unauthorized request
+`404`    | Resource not found 
+`50x`    | Internal server error.
+
+#### Formaat 
+
+```javascript 
+{
+    "error": {
+        "code": "{HTTP Status code}",
+        "http_code": "{Uitleg van de HTTP code}",
+        "message": "{Titel van de fout.}"
+    }
+}
+```
+# Group Overzicht
+
+### Oplijsting van alle verhuringen [GET /api/lease]
     
 + Response 200 (application/json)
 
@@ -37,7 +60,39 @@ van de *Authorization-header*
 
 ### Bekijk een specifieke verhuring [GET /{verhuring_id}]
 + Parameters
-    + verhuring_id (integer) - De id van de verhuring in the systeem.
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
+    
++ Response 401
     
 
-### Maak een verhuring aan [POST]
+### Maak een verhuring aan [POST /api/lease]
+
++ Request (application/json)
+    + Attributes
+        + choices: Swift, `Objective-C` (array, required) - test
+
++ Response 401
+
+### Verwijder een verhuring [DELETE /{verhuring_id}]
+
++ Parameters
+
+    + verhuring_id (integer) - De id van de verhuring in het systeem.
+
++ Response 200 (application/json)
+
++ Response 401 (application/json)
+
+    + Body
+
+        ```javascript
+        {
+            "error": {
+            "code": "401",
+                "http_code": "GEN-UNAUTHORIZED",
+                "message":"Unauthorized."
+            }
+        }
+        ```
+
++ Response 404 (application/json)
