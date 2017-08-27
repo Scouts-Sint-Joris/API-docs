@@ -43,43 +43,89 @@ Code     | Reason Phrase
     }
 }
 ```
-# Group Overzicht
+# Group Verhuringen
 
 ### Oplijsting van alle verhuringen [GET /api/lease]
     
 + Response 200 (application/json)
 
     + Headers
-    
+
             X-Authorization: '<Uw API sleutel>'
 
     + Body 
-    
-            {
-            }
+        ```javascript
+        {
+        }
+        ```
 
-### Bekijk een specifieke verhuring [GET /{verhuring_id}]
++ Response 401 (application/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+### Bekijk een specifieke verhuring [GET /api/lease/{verhuring_id}]
 + Parameters
     + verhuring_id (integer) - De id van de verhuring in het systeem.
-    
-+ Response 401
+
++ Response 200 (application/json)
+
+    + Headers 
+
+            X-Authorization: '<Uw api sleutel>'
+
+    + Body 
+        ```javascript
+        {
+        }
+        ```
+
++ Response 401 (application/json)
+
+    + Body 
+
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
     
 
 ### Maak een verhuring aan [POST /api/lease]
 
 + Request (application/json)
     + Attributes
-        + choices: Swift, `Objective-C` (array, required) - test
+        + status_id: 0 (number, required) -  1 = Nieuw, 2 = Optie, 3 = Bevestigd
+        + start_datum: 0000/00/00 (string, required) - Start datum v/d verhuring (YYYY/MM/DD)
+        + eind_datum: 0000/00/00 (string, required) - Eind datum v/d verhuring (YYYY/MM/DD)
+        + contact_email: naam@domein.tld (string, required) - Email adres v/d contact persoon
+        + groeps_naam: Sint Joris Turnhout (string, required) - De naam van de groep
 
 + Response 401
 
-### Verwijder een verhuring [DELETE /{verhuring_id}]
+### Verwijder een verhuring [DELETE /api/lease/{verhuring_id}]
 
 + Parameters
 
     + verhuring_id (integer) - De id van de verhuring in het systeem.
 
 + Response 200 (application/json)
+
+    + Headers 
+
+            X-Authorization: '<uw api sleutel>'
 
 + Response 401 (application/json)
 
@@ -88,11 +134,92 @@ Code     | Reason Phrase
         ```javascript
         {
             "error": {
-            "code": "401",
+                "code": "401",
                 "http_code": "GEN-UNAUTHORIZED",
-                "message":"Unauthorized."
+                "message": "Unauthorized."
             }
         }
         ```
 
 + Response 404 (application/json)
+
+# Group Logins 
+
+### Login aanmaken [POST /api/users]
+
+### Login verwijderen [DELETE /api/users/{user_id}]
+
++ Parameters
+
+    + user_id (integer) - De id van de login in het systeem.
+
+# Group Activiteiten
+
+### Oplijsting van alle activiteiten [GET /api/activities]
+
+:::note 
+Deze end-point is publiek
+:::
+
+# Group Takken
+
+### Oplijsting van alle groepen [GET /api/groups]
+
++ Response 200 (application/json)
+
++ Response 401 (application/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": "401",
+                "http_code": "GEN-UNAUTHORIZED",
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+
+### Informatie specifieke groep [GET /api/groups/{selector}]
+
++ parameters 
+
+    + selector (string) = De selector van de groep in de website.
+
+### Leidinsploeg [GET /api/groups/leidingsploeg]
+
+# Group API sleutels
+
+:::note
+Voor deze endpoints heb je administratie rechten nodig in de website.
+:::
+
++ Response 200 (application/json)
+
++ Response 401 (appliation/json)
+
+    + Body 
+        ```javascript
+        {
+            "error": {
+                "code": 401, 
+                "http_code": "GEN-AUTHORIZED", 
+                "message": "Unauthorized"
+            }
+        }
+        ```
+
+
+### Sleutel aanmaken [POST /api/key]
+
+:::note 
+Voor deze endpoint heb je administratie rechten nodig in de website.
+:::
+
+### Sleutel verwijderen [DELETE /api/key/]
+
+:::note 
+Voor deze endpoint heb je administratie rechten nodig in de website. 
+:::
+
